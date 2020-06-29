@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Sindria\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,12 +11,31 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * ************************************
+     * FUTURE UPDATES!!
+     * Change user table name into uncommon one,
+     * to prevent easy guessing for attackers
+     * ************************************
+     * The table associated with the model.
+     *
+     * @var string
+     * protected $table = 'my_flights';
+     */
+
+    /**
+     * The attribute that mark primary ID isn't an integer value.
+     * 
+     * @var boolean
+     */
+    public $incrementing = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id', 'username', 'email', 'password',
     ];
 
     /**
