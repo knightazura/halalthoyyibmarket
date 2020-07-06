@@ -13,8 +13,9 @@ class RouteMixins
     /**
      * Get model name key from route name with given format
      * @format mn:[key_of_model_name]
+     * @param string $identifier
      * 
-     * @return \Illuminate\Support\Collection
+     * @return string
      */
     public function getModelName()
     {
@@ -28,6 +29,13 @@ class RouteMixins
         };
     }
 
+    /**
+     * Get current action name from route name with given format
+     * @format pc:[action_of_model]
+     * @param string $identifier
+     * 
+     * @return string
+     */
     public function getProcessName()
     {
         return function ($identifier = "pc:") {

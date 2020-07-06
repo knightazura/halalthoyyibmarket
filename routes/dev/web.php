@@ -26,8 +26,10 @@ Route::get('/home', 'HomeController@index')->name('home');
  */
 Route::prefix('/experiment')->name('experiment.')->group(function () {
     Route::name('mn:customer.')->group(function () {
-        Route::get('/customers', 'CustomerController@index')->name('index');
-        Route::post('/customers', 'CustomerController@store')->name('pc:save-new-customer');
+        Route::get('/customers', 'CustomerController@index')->name('index-customer');
+        Route::get('/customer/{id}', 'CustomerController@show')->name('show-customer');
+        Route::post('/customers', 'CustomerController@store')->name('pc:store-customer');
+        Route::put('/customers/{id}', 'CustomerController@update')->name('pc:update-customer');
     });
     Route::name('mn:user.')->group(function () {
         Route::get('/users', 'UserController@index')->name('index');

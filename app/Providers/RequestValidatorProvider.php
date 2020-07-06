@@ -10,7 +10,8 @@ class RequestValidatorProvider extends ServiceProvider
 {
     private $validators = [
         'customer' => [
-            'save-new-customer' => \App\Http\Requests\Customer\SaveNewCustomer::class 
+            'store-customer' => \App\Http\Requests\Customer\SaveCustomerRequest::class,
+            'update-customer' => \App\Http\Requests\Customer\UpdateCustomer::class ,
         ]
     ];
 

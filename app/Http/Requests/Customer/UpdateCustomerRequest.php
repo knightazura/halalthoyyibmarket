@@ -5,14 +5,14 @@ namespace App\Http\Requests\Customer;
 use App\Contracts\RequestValidatorInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SaveNewCustomer extends FormRequest implements RequestValidatorInterface
+class UpdateCustomer extends FormRequest implements RequestValidatorInterface
 {
     /**
      * The route to redirect to if validation fails.
      *
      * @var string
      */
-    protected $redirectRoute = 'experiment.mn:customer.index';
+    protected $redirectRoute = 'experiment.mn:customer.show-customer';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,7 +21,7 @@ class SaveNewCustomer extends FormRequest implements RequestValidatorInterface
      */
     public function authorize()
     {
-        return true;
+        return true; // change this fixed value with real implementation
     }
 
     /**
@@ -32,7 +32,7 @@ class SaveNewCustomer extends FormRequest implements RequestValidatorInterface
     public function rules()
     {
         return [
-            'user_id' => 'required|uuid|bail',
+            'user_id' => 'required|uuid|unique:Sindria\Models\Customer,user_id|bail',
             'nama_depan' => 'required|min:2',
             'nama_belakang' => 'nullable|min:2'
         ];
