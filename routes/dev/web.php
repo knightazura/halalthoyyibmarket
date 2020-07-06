@@ -24,7 +24,15 @@ Route::get('/home', 'HomeController@index')->name('home');
  * 
  * Such functions that you want to try, smash it here!
  */
-Route::prefix('/experiment');
+Route::prefix('/experiment')->name('experiment.')->group(function () {
+    Route::name('mn:customer.')->group(function () {
+        Route::get('/customers', 'CustomerController@index')->name('index');
+        Route::post('/customers', 'CustomerController@store')->name('pc:save-new-customer');
+    });
+    Route::name('mn:user.')->group(function () {
+        Route::get('/users', 'UserController@index')->name('index');
+    });
+});
 
 /**
  * **************************************
@@ -34,8 +42,14 @@ Route::prefix('/experiment');
  * If you just want to print or know value of something
  * don't be shy to expose it here.
  */
-Route::prefix('/dummy')->group(function () {
+Route::prefix('/dummy')->name('dummy.')->group(function () {
     Route::get('/docker-ip', function () {
         return \Illuminate\Support\Facades\Request::ip();
+    });
+    Route::get('/get-route-name', function () {
+        return Route::currentRouteName();
+    })->name('dummy.get-route-name');
+    Route::get('/uuid', function () {
+        return Str::uuid();
     });
 });

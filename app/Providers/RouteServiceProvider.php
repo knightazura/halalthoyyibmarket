@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route as RoutingRoute;
+use Sindria\Helpers\Mixins\RouteMixins;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,9 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+
+        // Register our custom Route methods;
+        RoutingRoute::mixin(new RouteMixins());
     }
 
     /**

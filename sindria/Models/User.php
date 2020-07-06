@@ -55,4 +55,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * ************************************
+     * !!    Relationships start here    !!
+     * ************************************
+     */
+    
+    /**
+     * The user only bind to one customer
+     */
+    public function customer()
+    {
+        return $this->hasOne('Sindria\Models\Customer');
+    }
 }

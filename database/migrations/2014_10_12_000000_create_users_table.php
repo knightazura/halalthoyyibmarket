@@ -15,8 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::connection('marketplace')->create('users', function (Blueprint $table) {
             $table->uuid('id');
-            $table->string('username');
+            $table->boolean('active');
+            $table->string('username')->unique();
             $table->string('email')->unique();
+            $table->string('phonenumber')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

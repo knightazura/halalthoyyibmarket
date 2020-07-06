@@ -6,5 +6,6 @@ mix
 
 mix.browserSync({
   open: false,
-  proxy: "http://halalthoyyibmarket.test"
+  proxy: process.env.MIX_BROWSERSYNC_HOST,
+  port: process.env.MIX_BROWSERSYNC_PORT
 });
