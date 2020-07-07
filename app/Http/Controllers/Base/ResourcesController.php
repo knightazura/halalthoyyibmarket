@@ -132,6 +132,7 @@ class ResourcesController extends Controller implements BasicResourcesInterface
 
     /**
      * Store a newly created resource in storage.
+     * Default view is 'index'
      *
      * @param  \Illuminate\Foundation\Http\FormRequest  $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
@@ -147,6 +148,7 @@ class ResourcesController extends Controller implements BasicResourcesInterface
 
     /**
      * Update the specified resource in storage.
+     * Default view is 'show'
      *
      * @param  \Illuminate\Foundation\Http\FormRequest  $request
      * @param  any  $id
@@ -163,13 +165,26 @@ class ResourcesController extends Controller implements BasicResourcesInterface
 
     /**
      * Remove the specified resource from storage.
+     * Default view is 'index'
      *
      * @param  any  $id
+     * @return array ['data', 'deleted_[entity_name]']
      * @return \Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
     public function destroy($id)
     {
-        # code...
+        $deleted_entity = $this->repository->delete($id);
+
+        $deleted_entity_key = "deleted_" . Str::lower($this->getCurrentEntityName());
+
+        $updated_data = [
+            "data" => $this->repository->all(),
+            $deleted_entity_key => $deleted_entity
+        ];
+
+        $output = $this->returnByResponseType('destroy', $updated_data);
+
+        return $this->returnedInstance($output, 'index');
     }
 
     /**

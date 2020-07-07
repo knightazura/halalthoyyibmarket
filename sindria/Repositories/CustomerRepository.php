@@ -49,7 +49,14 @@ class CustomerRepository implements RepositoryInterface
 
     public function delete($id)
     {
-        # code...
+        $customer = $this->getCustomer($id);
+
+        if (isset($customer))
+            $will_deleted = $customer;
+
+        $customer->delete();
+
+        return $will_deleted;
     }
 
     public function getCustomer($id)
