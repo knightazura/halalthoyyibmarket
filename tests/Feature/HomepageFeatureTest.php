@@ -14,6 +14,8 @@ class HomepageFeatureTest extends TestCase
 {
     use RefreshDatabase, FakeUser;
 
+    private $homepage_view = 'pages.homepage';
+
     /** @test */
     public function a_guest_visit_marketplace()
     {
@@ -76,7 +78,7 @@ class HomepageFeatureTest extends TestCase
         ]);
 
         // Check returned view is correct
-        $response->assertViewIs('home');
+        $response->assertViewIs('pages.homepage');
 
         return $response;
     }
@@ -94,7 +96,7 @@ class HomepageFeatureTest extends TestCase
         ]);
 
         // Check returned view is correct
-        $response->assertViewIs('home');
+        $response->assertViewIs('pages.homepage');
 
         return $response;
     }

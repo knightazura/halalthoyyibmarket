@@ -28,6 +28,6 @@ class HomeController extends Controller
             array_push($data, 'customer');
         }
 
-        return view('home', compact($data));
+        return view('pages.homepage', compact($data));
     }
 }
