@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Sindria\Helpers\Migrations\MarketplaceMigration;
 
-class CreateFailedJobsTable extends Migration
+class CreateFailedJobsTable extends MarketplaceMigration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFailedJobsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('marketplace')->create('failed_jobs', function (Blueprint $table) {
+        Schema::connection($this->getConnection())->create('failed_jobs', function (Blueprint $table) {
             $table->id();
             $table->text('connection');
             $table->text('queue');
@@ -30,6 +30,6 @@ class CreateFailedJobsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('marketplace')->dropIfExists('failed_jobs');
+        Schema::connection($this->getConnection())->dropIfExists('failed_jobs');
     }
 }

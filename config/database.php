@@ -2,6 +2,20 @@
 
 use Illuminate\Support\Str;
 
+$default_mysql_conf = [
+    'driver' => 'mysql',
+    'url' => env('DATABASE_URL'),
+    'charset' => 'utf8mb4',
+    'collation' => 'utf8mb4_unicode_ci',
+    'prefix' => '',
+    'prefix_indexes' => true,
+    'strict' => true,
+    'engine' => null,
+    'options' => extension_loaded('pdo_mysql') ? array_filter([
+        PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+    ]) : [],
+];
+
 return [
 
     /*
@@ -15,7 +29,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_DEFAULT_CONNECTION', 'marketplace'),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,25 +57,23 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        'marketplace' => [
-            'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
+        'marketplace' => array_merge([
             'host' => env('MARKETPLACE_DB_HOST', '127.0.0.1'),
             'port' => env('MARKETPLACE_DB_PORT', '3306'),
             'database' => env('MARKETPLACE_DB_DATABASE', 'forge'),
             'username' => env('MARKETPLACE_DB_USERNAME', 'forge'),
             'password' => env('MARKETPLACE_DB_PASSWORD', ''),
             'unix_socket' => env('MARKETPLACE_DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
-        ],
+        ], $default_mysql_conf),
+
+        'zero' => array_merge([
+            'host' => env('ZERO_DB_HOST', '127.0.0.1'),
+            'port' => env('ZERO_DB_PORT', '3306'),
+            'database' => env('ZERO_DB_DATABASE', 'forge'),
+            'username' => env('ZERO_DB_USERNAME', 'forge'),
+            'password' => env('ZERO_DB_PASSWORD', ''),
+            'unix_socket' => env('ZERO_DB_SOCKET', ''),
+        ], $default_mysql_conf),
 
     ],
 

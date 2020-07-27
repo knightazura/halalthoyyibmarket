@@ -87,6 +87,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     private function basePath()
     {
-        return (App::environment('local')) ? 'routes/dev/' : 'routes/';
+        return (App::environment('local') || App::environment('testing')) ? 'routes/dev/' : 'routes/';
     }
 }

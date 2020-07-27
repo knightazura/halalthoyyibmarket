@@ -6,16 +6,12 @@ use Illuminate\Support\Facades\Route;
  * **************************************
  * Real application routes
  * **************************************
- * 
+ *
  * Routes that will ready to push into staging or production!
  */
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 /**
  * **************************************
@@ -34,6 +30,13 @@ Route::prefix('/experiment')->name('experiment.')->group(function () {
     });
     Route::name('mn:user.')->group(function () {
         Route::get('/users', 'UserController@index')->name('index');
+    });
+
+    Route::get('/homepage', function () {
+        $package_collections = [
+            
+        ];
+        return view('layouts.homepage', compact('package_collections'));
     });
 });
 

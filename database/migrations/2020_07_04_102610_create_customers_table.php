@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Sindria\Helpers\Migrations\MarketplaceMigration;
 
-class CreateCustomersTable extends Migration
+class CreateCustomersTable extends MarketplaceMigration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::connection($this->getConnection())->create('customers', function (Blueprint $table) {
             $table->uuid('id');
-            $table->uuid('user_id');
-            $table->string('nama_depan');
-            $table->string('nama_belakang')->nullable();
+            $table->uuid('user_account_id');
+            $table->string('first_name');
+            $table->string('last_name')->nullable();
+            $table->date('birthdate');
+            $table->string('gender');
+            $table->uuid('organization_id');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::connection($this->getConnection())->dropIfExists('customers');
     }
 }
